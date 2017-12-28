@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>GOAL!!</title>
+    <h1>GOALAZOOO!!</h1>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" href="StyleSheet.css" />
+</head>
+<body>
+    <canvas id="canvas" width="900" height= "550"></canvas>
+     <script src="sprites/square.js"></script>
+     <script src="sprites/middlepad.js"></script>
+     <script src="sprites/pad1.js"></script>
+     <script src="sprites/goalpad.js"></script>
+     <script src="class/keycode.js"></script>
+     <script src="class/vector.js"></script>
+     <script src="class/acceleration.js"></script>
+     <script src="sprites/pad2.js"></script>
+    <script src="sprites/pad3.js"></script>
+    <script src="sprites/pad4.js"></script>
+    <script src="sprites/pad5.js"></script>
+    <script src="sprites/padright.js"></script>
+    <script src="sprites/padleft.js"></script>
+    <script src="class/collision.js"></script>
+    <div id="timer"></div>
+
+    <script>
+            
+
+     
+
+
+            //this function will always be executed when the page loads
+            window.onload = function () {
+                //create a reference to the canvas
+                var canvas = document.getElementById('canvas'),
+                    //access the 2D drawing API
+                    context = canvas.getContext('2d'),
+                    //new instance of the circle class
+                    ship = new Square(),
+                   //create a new instance of the vector class
+                   vector = new Vector(25, 1);
+                   //create a new acceleration object
+                    acceleration = new Accelerate(.005),
+                    collision = new Collision(),
+                    // new instance of the middlepad class
+                    middle = new Middlepad(450,200),
+                   //new instance of defender class
+                   pad1 = new Pad1(850,490),
+                  //new instance of goal pad class
+                  goal = new GoalPad(450,540);
+                 //new instance of defender class
+                    pad2 = new Pad2(50,490);
+                    pad3 = new Pad3(700,400);
+                    pad4 = new Pad4(250,400);
+                    pad5 = new Pad5(450,350);
+                    padright = new PadRight(430,500);
+                    padleft = new PadLeft(250, 500);
+                    //padleftside = new PadLeftSide(200,200);
+                 //set the position of the landing pad
+
+                 //Pad2.X = -50;
+                 //Pad2.Y =  -150;
+
+                //function to handle keyboard events
+                    function KeyboardEventHandler(event) {
+                        //if the up arrow is pressed
+                        if (event.keyCode == keycode.UP) {
+                            acceleration.VThrust(.01);
+                            //ship.Y -= 10;
+                        }
+                        //if the left arrow is pressed
+                        if (event.keyCode == keycode.LEFT) {
+                           acceleration.HThrust(.005);
+                            //ship.X -= 10;
+                        }
+                        //if the right arrow is pressed
+                        if (event.keyCode == keycode.RIGHT) {
+
+                           acceleration.HThrust(-.005);
+                            //ship.X += 10;
+                        }
+                        //if the down arrow is pressed
+                        if (event.keyCode == keycode.DOWN) {
+                           acceleration.Halt();
+                            //ship.Y += 10;
+                        }
+                    }
+
+                //add a listener for the keydown event
+                window.addEventListener('keydown', KeyboardEventHandler, false);
+
+
+
+                (function drawFrame() {
+                    //clear the canvas for the new frame
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    //draw the middle pads
+                middle.draw(context);
+                    //draw the defender 
+                    pad1.draw(context);
+                    //draw the defender 
+                    pad2.draw(context);
+                    //draw the goal pad
+                    goal.draw(context);
+                    pad3.draw(context);
+                    pad4.draw(context);
+                    pad5.draw(context);
+                   padright.draw(context);
+                   padleft.draw(context);
+                   //padleftside.draw(context);
+                    // draw the circle
+                    ship.draw(context);
+                    //move the saucer
+                    ship.move(); 
+                    //apply the acceleration to the ship
+                    ship.accelerate(acceleration);
+                    //get the next animation frame
+                    window.requestAnimationFrame(drawFrame);
+
+                    //check to see if there is a collision or not 
+                    if (collision.Overlapping(ship, middle)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+                        //halt the ship
+                        ship.halt()
+                        clearInterval(interval);
+                    }
+                    if (collision.Overlapping(ship, pad1)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+                        //halt the ship
+                        ship.halt()
+                        clearInterval(interval);
+                    }
+                    if (collision.Overlapping(ship, pad2)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+                        //halt the ship
+                        ship.halt()
+                        clearInterval(interval);
+                    }
+                    if (collision.Overlapping(ship, pad3)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+                        //halt the ship
+                        ship.halt()
+                        clearInterval(interval);
+                    }
+                    if (collision.Overlapping(ship, pad4)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+
+                        //halt the ship
+                        ship.halt()
+                        clearInterval(interval);
+                    }
+                    if (collision.Overlapping(ship, pad5)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+                        //halt the ship
+                        ship.halt()
+                        clearInterval(interval);
+                    }
+                    if (collision.Overlapping(ship, goal)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+                        //halt the ship
+                        ship.halt1()
+                        
+                        clearInterval(interval);
+                    }
+                    if (collision.Overlapping(ship, padleft)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+                        //halt the ship
+                        ship.halt()
+
+                        clearInterval(interval);
+                    }
+
+                    if (collision.Overlapping(ship, padright)) {
+                        keycode.UP = false;
+                        keycode.DOWN = false;
+                        keycode.LEFT = false;
+                        keycode.RIGHT = false;
+                        //halt the ship
+                        ship.halt()
+
+                        clearInterval(interval);
+                    }
+                })();
+            }
+
+        //var for the timer
+            var timer = 30
+        //set an interval 
+            var interval = setInterval(function () {
+                document.getElementById('timer').innerHTML = --timer;
+
+
+                // if there is no timer left 
+                if (timer < -0) {
+                    //display message the folllowing message
+                    document.getElementById('timer').innerHTML = "out of time";
+                    //alert the user
+                    var over = confirm("didnt score, try again");
+                    if (over == true) {
+                        window.location.reload();
+                    }
+                    else {
+                        alert("U did it");
+                        window.close();
+                    }
+                    //clear the interval 
+                    clearInterval(interval);
+                    //stop the ship from moving 
+                   // ship.halt();
+
+                }
+            },
+
+
+            1000);
+
+
+</script>
+
+    
+   
+
+    </body>
+</html>

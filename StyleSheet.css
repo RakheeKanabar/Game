@@ -1,0 +1,49 @@
+﻿body {
+    background-color: rgb(255, 255, 255);
+}
+h1{
+    text-align:center;
+    color:darkgreen;
+}
+canvas {
+     background-color: rgb(0, 177, 14);
+     padding-left: 0;
+    padding-right: 0;
+   margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+button{
+
+     padding-left: 0;
+    padding-right: 0;
+   margin-left: auto;
+    margin-right: auto;
+    display: block;
+    height:50px;
+    width:100px;
+
+}
+#container{
+width:900px;
+height:550px;
+margin: 0px auto 0px auto;
+background-color:white;
+border:solid;
+}
+
+p{
+    text-align:center;
+   font-size:30px;
+
+}
+h3{
+    text-align:center;
+}
+timer{
+    padding-left: 0;
+    padding-right: 0;
+   margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
